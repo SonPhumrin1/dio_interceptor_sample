@@ -4,6 +4,7 @@ import 'package:dio_interceptor/network/dio_exception.dart';
 import 'package:dio_interceptor/network/endpoints.dart';
 import 'package:dio_interceptor/network/interceptors/authorization_interceptor.dart';
 import 'package:dio_interceptor/network/interceptors/logger_interceptor.dart';
+import 'package:dio_interceptor/network/interceptors/no_authorization_interceptor.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 
 class DioClient {
@@ -64,6 +65,8 @@ Dio myDio({String? token}) {
 
   if (token != null) {
     interceptors.add(AuthorizationInterceptor(token: token));
+  } else {
+    interceptors.add(NoAuthorizationInterceptor());
   }
 
   dio.interceptors.addAll(interceptors);
